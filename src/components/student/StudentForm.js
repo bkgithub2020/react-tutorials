@@ -1,0 +1,82 @@
+import React, { useState, useEffect } from 'react';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import PersonalDetails from './PersonalDetails';
+import AddressDetails from './AddressDetails';
+import ParentDetails from './ParentDetails';
+import Button from '@mui/material/Button';
+
+
+
+export default function StudentForm() {
+    const [submitted, setSubmitted] = useState(false);
+    const [formState, setFormState] = useState({
+        values: {}
+    });
+
+    const handleChange = (event) => {
+        setFormState(formState => ({
+            ...formState,
+            values: {
+                ...formState.values,
+                [event.target.name]:
+                    event.target.type === 'checkbox'
+                        ? event.target.checked
+                        : event.target.value
+            }
+
+        }));
+    }
+
+    const handleSubmit = (e) => {
+        setSubmitted(true);
+        e.preventDefault();
+        console.log(formState.values);
+    }
+    return (
+        <Box>
+            <Grid container spacing={2} sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}>
+
+                <Grid item xs={6}>
+                    <Typography variant="h4" gutterBottom>
+                        Student Form
+                    </Typography>
+                    <form className="" onSubmit={handleSubmit} id="studentForm" autoComplete='off' name="studentForm">
+                        <Grid container spacing={3} mb={20}>
+                            <PersonalDetails
+                                handleChangeCall={handleChange}
+                                currentFormState={formState}
+                                submittedStatus={submitted}
+                            />
+                            <AddressDetails
+                                handleChangeCall={handleChange}
+                                currentFormState={formState}
+                                submittedStatus={submitted}
+                            />
+                            <ParentDetails
+                                handleChangeCall={handleChange}
+                                currentFormState={formState}
+                                submittedStatus={submitted}
+                            />
+                            <Grid item xs={12} sm={12}>
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Save
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+                    </form>
+                </Grid>
+            </Grid>
+        </Box >
+    );
+}
