@@ -45,3 +45,12 @@ a {
 .helper-error {
   color: #d32f2f
 }
+
+.previous-step-div {
+  margin: 0 10px;
+}
+
+.step-div {
+  display: flex;
+  justify-content: space-between;
+}
