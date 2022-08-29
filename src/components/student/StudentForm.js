@@ -6,14 +6,15 @@ import PersonalDetails from './PersonalDetails';
 import AddressDetails from './AddressDetails';
 import ParentDetails from './ParentDetails';
 import Button from '@mui/material/Button';
-
-
+import AlertSuccess from '../common/AlertSuccess';
 
 export default function StudentForm({ setStudentsFunc, studentData }) {
     const [submitted, setSubmitted] = useState(false);
     const [formState, setFormState] = useState({
         values: {}
     });
+    const [message, setMessage] = useState("");
+    const [openState, setOpenState] = useState(false);
 
     const handleChange = (event) => {
         setFormState(formState => ({
@@ -39,10 +40,18 @@ export default function StudentForm({ setStudentsFunc, studentData }) {
             setStudentsFunc([...studentData, formState.values]);
             setFormState({ values: {} });
             setSubmitted(false);
+            setOpenState(true);
+            setMessage("Student Added Successfully!")
         }
     }
+
+    const handleClose = (event, reason) => {
+        setOpenState(false);
+    };
+
     return (
         <Box>
+            <AlertSuccess open={openState} message={message} handleClose={handleClose} />
             <Grid container spacing={2} sx={{
                 display: 'flex',
                 alignItems: 'center',

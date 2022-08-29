@@ -5,10 +5,12 @@ import Typography from '@mui/material/Typography';
 import NextStep from './NextStep';
 import PreviousStep from './PreviousStep';
 import Button from '@mui/material/Button';
+import AlertSuccess from '../../common/AlertSuccess';
 
-function StepSection({ nextFunc, nextStep, previousStep, previousFunc, formComponent, finalStep, submitFunc }) {
+function StepSection({ nextFunc, nextStep, previousStep, previousFunc, formComponent, finalStep, submitFunc, openState, message, handleClose }) {
     return (
         <Box>
+            <AlertSuccess open={openState} message={message} handleClose={handleClose} />
             <Grid container spacing={2} sx={{
                 display: 'flex',
                 alignItems: 'center',

@@ -11,6 +11,8 @@ function StudentStepForm({ setStudentsFunc, studentData }) {
     const [formState, setFormState] = useState({
         values: {}
     });
+    const [message, setMessage] = useState("");
+    const [openState, setOpenState] = useState(false);
 
     const nextStepValidation = () => {
         const { firstName, lastName, gender, address1, city, state, zip, country } = formState.values;
@@ -97,8 +99,14 @@ function StudentStepForm({ setStudentsFunc, studentData }) {
             setStudentsFunc([...studentData, formState.values]);
             setFormState({ values: {} });
             setSubmitted(false);
+            setOpenState(true);
+            setMessage("Student Added Successfully!")
         }
     }
+
+    const handleClose = (event, reason) => {
+        setOpenState(false);
+    };
 
 
     switch (currentStep) {
@@ -110,6 +118,9 @@ function StudentStepForm({ setStudentsFunc, studentData }) {
                         nextStep={true}
                         previousStep={false}
                         finalStep={false}
+                        openState={openState}
+                        message={message}
+                        handleClose={handleClose}
                         formComponent={
                             <PersonalDetails
                                 handleChangeCall={handleChange}
@@ -130,6 +141,9 @@ function StudentStepForm({ setStudentsFunc, studentData }) {
                         nextStep={true}
                         previousStep={true}
                         finalStep={false}
+                        openState={openState}
+                        message={message}
+                        handleClose={handleClose}
                         formComponent={
                             <AddressDetails
                                 handleChangeCall={handleChange}
@@ -151,6 +165,9 @@ function StudentStepForm({ setStudentsFunc, studentData }) {
                         previousStep={true}
                         finalStep={true}
                         submitFunc={handleSubmit}
+                        openState={openState}
+                        message={message}
+                        handleClose={handleClose}
                         formComponent={
                             <ParentDetails
                                 handleChangeCall={handleChange}

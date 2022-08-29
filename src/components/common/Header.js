@@ -34,6 +34,11 @@ export default function Header() {
                                 Student List
                             </Button>
                         </Link>
+                        <Link to="/student-statics">
+                            <Button>
+                                Student Statics
+                            </Button>
+                        </Link>
                         <Link to="/simpleform">
                             <Button>
                                 Simple Form

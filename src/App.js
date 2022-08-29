@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import StudentForm from './components/student/StudentForm';
 import StudentStepForm from './components/student/StudentStepForm';
 import StudentList from './components/student/StudentList';
+import StudentStatics from './components/student/StudentStatics';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Header from './components/common/Header';
@@ -36,7 +37,12 @@ function App() {
           <Route path="/stepform">
             <StudentStepForm setStudentsFunc={setStudents} studentData={students} />
           </Route>
-          <Route path="/student-list" component={StudentList} studentData={students} />
+          <Route path="/student-list">
+            <StudentList studentData={students} />
+          </Route>
+          <Route path="/student-statics">
+            <StudentStatics studentData={students} />
+          </Route>
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>

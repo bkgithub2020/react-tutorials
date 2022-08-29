@@ -64,13 +64,38 @@ function PersonalDetails({ handleChangeCall, currentFormState, submittedStatus, 
                         marginTop: '10px'
                     }}
                 >
+                    <TextField
+                        id="marks"
+                        name="marks"
+                        label="Marks"
+                        type="number"
+                        fullWidth
+                        autoComplete="family-name"
+                        variant="standard"
+                        error={(submittedStatus || !stepValidation) && !currentFormState.values.marks ? true : false}
+                        helperText={
+                            (submittedStatus || !stepValidation) && !currentFormState.values.marks
+                                ? "This field is required" : ""
+                        }
+                        onChange={handleChangeCall}
+                        value={currentFormState.values.marks || ''}
+                    />
+                </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+                <FormControl variant="standard"
+                    sx={{
+                        minWidth: 120, display: 'flex',
+                        justifyContent: 'left',
+                        marginTop: '10px'
+                    }}
+                >
                     <InputLabel id="genderLabel">Gender*</InputLabel>
                     <Select
                         labelId="genderLabel"
                         name="gender"
                         id="gender"
                         label="Gender*"
-                        value=""
                         error={(submittedStatus || !stepValidation) && !currentFormState.values.gender ? true : false}
                         onChange={handleChangeCall}
                         value={currentFormState.values.gender || ''}
