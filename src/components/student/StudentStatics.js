@@ -53,10 +53,11 @@ function StudentStatics({ studentData }) {
 
     //State wise Students Count Start
     const stateWiseStudents = studentData.reduce(function (acc, curr) {
-        if (acc[curr.state.trim()]) {
-            acc[curr.state.trim()] = ++acc[curr.state.trim()];
+        let currState = curr.state.trim();//Remove Trailing space from value
+        if (acc[currState]) {
+            acc[currState] = ++acc[currState];
         } else {
-            acc[curr.state.trim()] = 1;
+            acc[currState] = 1;
         }
         return acc;
     }, {});
