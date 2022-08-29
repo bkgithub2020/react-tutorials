@@ -23,6 +23,8 @@ function ParentDetails({ handleChangeCall, currentFormState }) {
                     label="Father Name"
                     fullWidth
                     variant="standard"
+                    onChange={handleChangeCall}
+                    value={currentFormState.values.fathername || ''}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -33,6 +35,7 @@ function ParentDetails({ handleChangeCall, currentFormState }) {
                     fullWidth
                     variant="standard"
                     onChange={handleChangeCall}
+                    value={currentFormState.values.mothername || ''}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -43,6 +46,7 @@ function ParentDetails({ handleChangeCall, currentFormState }) {
                     fullWidth
                     variant="standard"
                     onChange={handleChangeCall}
+                    value={currentFormState.values.father_occupation || ''}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -53,6 +57,7 @@ function ParentDetails({ handleChangeCall, currentFormState }) {
                     fullWidth
                     variant="standard"
                     onChange={handleChangeCall}
+                    value={currentFormState.values.mothername_occupation || ''}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -63,6 +68,7 @@ function ParentDetails({ handleChangeCall, currentFormState }) {
                     fullWidth
                     variant="standard"
                     onChange={handleChangeCall}
+                    value={currentFormState.values.father_phone || ''}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -73,6 +79,7 @@ function ParentDetails({ handleChangeCall, currentFormState }) {
                     fullWidth
                     variant="standard"
                     onChange={handleChangeCall}
+                    value={currentFormState.values.mothername_phone || ''}
                 />
             </Grid>
         </>

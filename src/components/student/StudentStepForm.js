@@ -4,7 +4,7 @@ import PersonalDetails from './PersonalDetails';
 import AddressDetails from './AddressDetails';
 import ParentDetails from './ParentDetails';
 
-function StudentStepForm() {
+function StudentStepForm({ setStudentsFunc, studentData }) {
     const [currentStep, setCurrentStep] = useState(1);
     const [submitted, setSubmitted] = useState(false);
     const [stepValidation, setStepValidation] = useState(true);
@@ -90,7 +90,14 @@ function StudentStepForm() {
     const handleSubmit = (e) => {
         setSubmitted(true);
         e.preventDefault();
-        console.log(formState.values);
+
+        const { firstName, lastName, gender, address1, city, state, zip, country } = formState.values;
+
+        if (firstName && lastName && gender && address1 && city && state && zip && country) {
+            setStudentsFunc([...studentData, formState.values]);
+            setFormState({ values: {} });
+            setSubmitted(false);
+        }
     }
 
 

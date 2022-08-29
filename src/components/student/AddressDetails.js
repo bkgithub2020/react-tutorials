@@ -30,6 +30,7 @@ function AddressDetails({ handleChangeCall, currentFormState, submittedStatus, s
                             ? "This field is required" : ""
                     }
                     onChange={handleChangeCall}
+                    value={currentFormState.values.address1 || ''}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -41,6 +42,7 @@ function AddressDetails({ handleChangeCall, currentFormState, submittedStatus, s
                     autoComplete="shipping address-line2"
                     variant="standard"
                     onChange={handleChangeCall}
+                    value={currentFormState.values.address2 || ''}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -57,6 +59,7 @@ function AddressDetails({ handleChangeCall, currentFormState, submittedStatus, s
                             ? "This field is required" : ""
                     }
                     onChange={handleChangeCall}
+                    value={currentFormState.values.city || ''}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -72,6 +75,7 @@ function AddressDetails({ handleChangeCall, currentFormState, submittedStatus, s
                             ? "This field is required" : ""
                     }
                     onChange={handleChangeCall}
+                    value={currentFormState.values.state || ''}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -88,6 +92,7 @@ function AddressDetails({ handleChangeCall, currentFormState, submittedStatus, s
                             ? "This field is required" : ""
                     }
                     onChange={handleChangeCall}
+                    value={currentFormState.values.zip || ''}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -104,6 +109,7 @@ function AddressDetails({ handleChangeCall, currentFormState, submittedStatus, s
                             ? "This field is required" : ""
                     }
                     onChange={handleChangeCall}
+                    value={currentFormState.values.country || ''}
                 />
             </Grid>
         </>

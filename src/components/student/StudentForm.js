@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 
 
-export default function StudentForm() {
+export default function StudentForm({ setStudentsFunc, studentData }) {
     const [submitted, setSubmitted] = useState(false);
     const [formState, setFormState] = useState({
         values: {}
@@ -32,7 +32,14 @@ export default function StudentForm() {
     const handleSubmit = (e) => {
         setSubmitted(true);
         e.preventDefault();
-        console.log(formState.values);
+
+        const { firstName, lastName, gender, address1, city, state, zip, country } = formState.values;
+
+        if (firstName && lastName && gender && address1 && city && state && zip && country) {
+            setStudentsFunc([...studentData, formState.values]);
+            setFormState({ values: {} });
+            setSubmitted(false);
+        }
     }
     return (
         <Box>
