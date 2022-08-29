@@ -29,6 +29,11 @@ export default function Header() {
             <AppBar className={header}>
                 <Toolbar>
                     <Box>
+                        <Link to="/student-list">
+                            <Button>
+                                Student List
+                            </Button>
+                        </Link>
                         <Link to="/simpleform">
                             <Button>
                                 Simple Form

@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 
-function PersonalDetails({ handleChangeCall, currentFormState, submittedStatus }) {
+function PersonalDetails({ handleChangeCall, currentFormState, submittedStatus, stepValidation = true }) {
 
     return (
         <>
@@ -30,9 +30,9 @@ function PersonalDetails({ handleChangeCall, currentFormState, submittedStatus }
                     fullWidth
                     autoComplete="given-name"
                     variant="standard"
-                    error={submittedStatus && !currentFormState.values.firstName ? true : false}
+                    error={(submittedStatus || !stepValidation) && !currentFormState.values.firstName ? true : false}
                     helperText={
-                        submittedStatus && !currentFormState.values.firstName
+                        (submittedStatus || !stepValidation) && !currentFormState.values.firstName
                             ? "This field is required" : ""
                     }
                     onChange={handleChangeCall}
@@ -47,9 +47,9 @@ function PersonalDetails({ handleChangeCall, currentFormState, submittedStatus }
                     fullWidth
                     autoComplete="family-name"
                     variant="standard"
-                    error={submittedStatus && !currentFormState.values.lastName ? true : false}
+                    error={(submittedStatus || !stepValidation) && !currentFormState.values.lastName ? true : false}
                     helperText={
-                        submittedStatus && !currentFormState.values.lastName
+                        (submittedStatus || !stepValidation) && !currentFormState.values.lastName
                             ? "This field is required" : ""
                     }
                     onChange={handleChangeCall}
@@ -64,14 +64,14 @@ function PersonalDetails({ handleChangeCall, currentFormState, submittedStatus }
                         marginTop: '10px'
                     }}
                 >
-                    <InputLabel id="genderLabel">Gender</InputLabel>
+                    <InputLabel id="genderLabel">Gender*</InputLabel>
                     <Select
                         labelId="genderLabel"
                         name="gender"
                         id="gender"
                         label="Gender*"
                         value=""
-                        error={submittedStatus && !currentFormState.values.gender ? true : false}
+                        error={(submittedStatus || !stepValidation) && !currentFormState.values.gender ? true : false}
                         onChange={handleChangeCall}
                         value={currentFormState.values.gender || ''}
                     >
@@ -79,7 +79,7 @@ function PersonalDetails({ handleChangeCall, currentFormState, submittedStatus }
                         <MenuItem value='male'>Male</MenuItem>
                         <MenuItem value='female'>Female</MenuItem>
                     </Select>
-                    <FormHelperText className='helper-error'>{submittedStatus && !currentFormState.values.gender ? "This field is required" : ""}</FormHelperText>
+                    <FormHelperText className='helper-error'>{(submittedStatus || !stepValidation) && !currentFormState.values.gender ? "This field is required" : ""}</FormHelperText>
                 </FormControl>
             </Grid>
         </>

@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import NextStep from './steps/NextStep';
-import PreviousStep from './steps/PreviousStep';
 import StepSection from './steps/StepSection';
 import PersonalDetails from './PersonalDetails';
 import AddressDetails from './AddressDetails';
@@ -10,9 +7,58 @@ import ParentDetails from './ParentDetails';
 function StudentStepForm() {
     const [currentStep, setCurrentStep] = useState(1);
     const [submitted, setSubmitted] = useState(false);
+    const [stepValidation, setStepValidation] = useState(true);
     const [formState, setFormState] = useState({
         values: {}
     });
+
+    const nextStepValidation = () => {
+        const { firstName, lastName, gender, address1, city, state, zip, country } = formState.values;
+
+        switch (currentStep) {
+            case 1:
+                if ((!firstName || firstName === "")
+                    || (!lastName || lastName === "")
+                    || (!gender || gender === "")
+                ) {
+                    setStepValidation(false);
+                } else {
+                    setStepValidation(true);
+                    nextStep();
+                }
+                break;
+
+            case 2:
+                if ((!address1 || address1 === "")
+                    || (!city || city === "")
+                    || (!state || state === "")
+                    || (!zip || zip === "")
+                    || (!country || country === "")
+                ) {
+                    setStepValidation(false);
+                } else {
+                    setStepValidation(true);
+                    nextStep();
+                }
+                break;
+
+            case 3:
+                if ((!firstName || firstName === "")
+                    || (!lastName || lastName === "")
+                    || (!gender || gender === "")
+                ) {
+                    setStepValidation(false);
+                } else {
+                    setStepValidation(true);
+                    nextStep();
+                }
+                break;
+
+            default:
+                break;
+        }
+
+    }
 
     const nextStep = () => {
         setCurrentStep((step) => {
@@ -53,7 +99,7 @@ function StudentStepForm() {
             return (
                 <>
                     <StepSection
-                        nextFunc={nextStep}
+                        nextFunc={nextStepValidation}
                         nextStep={true}
                         previousStep={false}
                         finalStep={false}
@@ -62,6 +108,7 @@ function StudentStepForm() {
                                 handleChangeCall={handleChange}
                                 currentFormState={formState}
                                 submittedStatus={submitted}
+                                stepValidation={stepValidation}
                             />
                         }
                     />
@@ -71,7 +118,7 @@ function StudentStepForm() {
             return (
                 <>
                     <StepSection
-                        nextFunc={nextStep}
+                        nextFunc={nextStepValidation}
                         previousFunc={previousStep}
                         nextStep={true}
                         previousStep={true}
@@ -81,6 +128,7 @@ function StudentStepForm() {
                                 handleChangeCall={handleChange}
                                 currentFormState={formState}
                                 submittedStatus={submitted}
+                                stepValidation={stepValidation}
                             />
                         }
                     />
@@ -90,7 +138,7 @@ function StudentStepForm() {
             return (
                 <>
                     <StepSection
-                        nextFunc={nextStep}
+                        nextFunc={nextStepValidation}
                         previousFunc={previousStep}
                         nextStep={false}
                         previousStep={true}
@@ -101,6 +149,7 @@ function StudentStepForm() {
                                 handleChangeCall={handleChange}
                                 currentFormState={formState}
                                 submittedStatus={submitted}
+                                stepValidation={stepValidation}
                             />
                         }
                     />
