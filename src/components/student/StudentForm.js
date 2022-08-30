@@ -40,7 +40,7 @@ export default function StudentForm({ setStudentsFunc, studentData }) {
         const { firstName, lastName, gender, address1, city, state, zip, country } = formState.values;
 
         if (firstName && lastName && gender && address1 && city && state && zip && country) {
-            // setStudentsFunc([...studentData, formState.values]);//Before redux data in local storage
+            setStudentsFunc([...studentData, formState.values]);//Before redux data in local storage
             dispatch(addStudent(formState.values)); //After Redux
             setFormState({ values: {} });
             setSubmitted(false);

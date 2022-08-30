@@ -99,7 +99,7 @@ function StudentStepForm({ setStudentsFunc, studentData }) {
         const { firstName, lastName, gender, address1, city, state, zip, country } = formState.values;
 
         if (firstName && lastName && gender && address1 && city && state && zip && country) {
-            // setStudentsFunc([...studentData, formState.values]);//Before redux store in local storage
+            setStudentsFunc([...studentData, formState.values]);//Before redux store in local storage
             dispatch(addStudent(formState.values)); //After Redux
             setFormState({ values: {} });
             setSubmitted(false);
