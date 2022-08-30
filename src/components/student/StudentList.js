@@ -1,6 +1,6 @@
 import React from 'react';
 import MUIDataTable from "mui-datatables";
-
+import { useSelector } from 'react-redux';
 
 const columns = [
     {
@@ -57,12 +57,12 @@ const options = {
 
 
 function StudentList({ studentData }) {
-
+    const studentDataFromStore = useSelector((state) => state.student.studentsList);
     return (
         <>
             <MUIDataTable
                 title={"Student List"}
-                data={studentData}
+                data={studentDataFromStore}
                 columns={columns}
                 options={options}
             />

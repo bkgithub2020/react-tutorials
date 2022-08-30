@@ -1,7 +1,6 @@
 import {
     AppBar,
     Toolbar,
-    Typography,
     makeStyles,
     Button,
 } from "@material-ui/core";
@@ -22,7 +21,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Header() {
-    const { header, logo, mainHeader } = useStyles();
+    const { header, mainHeader } = useStyles();
 
     return (
         <header className={mainHeader}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import BarChart from "./charts/BarChart";
 import LineChart from "./charts/LineChart";
@@ -9,8 +9,8 @@ import Paper from '@mui/material/Paper';
 function StudentStatics({ studentData }) {
     // //Gender Chart Data Calculation
     const totalStudents = studentData.length;
-    const malePercentageCount = (totalStudents > 0) ? (((studentData.filter((student) => student.gender == "male").length) * 100) / totalStudents) : 0;
-    const femalePercentageCount = (totalStudents > 0) ? (((studentData.filter((student) => student.gender == "female").length) * 100) / totalStudents) : 0;
+    const malePercentageCount = (totalStudents > 0) ? (((studentData.filter((student) => student.gender === "male").length) * 100) / totalStudents) : 0;
+    const femalePercentageCount = (totalStudents > 0) ? (((studentData.filter((student) => student.gender === "female").length) * 100) / totalStudents) : 0;
 
     const genderData = {
         labels: [

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -7,6 +8,7 @@ import AddressDetails from './AddressDetails';
 import ParentDetails from './ParentDetails';
 import Button from '@mui/material/Button';
 import AlertSuccess from '../common/AlertSuccess';
+import { addStudent } from '../../redux/actions/StudentActions';
 
 export default function StudentForm({ setStudentsFunc, studentData }) {
     const [submitted, setSubmitted] = useState(false);
@@ -15,6 +17,7 @@ export default function StudentForm({ setStudentsFunc, studentData }) {
     });
     const [message, setMessage] = useState("");
     const [openState, setOpenState] = useState(false);
+    const dispatch = useDispatch();
 
     const handleChange = (event) => {
         setFormState(formState => ({
@@ -37,11 +40,13 @@ export default function StudentForm({ setStudentsFunc, studentData }) {
         const { firstName, lastName, gender, address1, city, state, zip, country } = formState.values;
 
         if (firstName && lastName && gender && address1 && city && state && zip && country) {
-            setStudentsFunc([...studentData, formState.values]);
+            // setStudentsFunc([...studentData, formState.values]);//Before redux data in local storage
+            dispatch(addStudent(formState.values)); //After Redux
             setFormState({ values: {} });
             setSubmitted(false);
             setOpenState(true);
-            setMessage("Student Added Successfully!")
+            setMessage("Student Added Successfully!");
+
         }
     }
 
