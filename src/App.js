@@ -7,6 +7,7 @@ import StudentStatics from './components/student/StudentStatics';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Header from './components/common/Header';
+import AutoCompletedText from './components/autocompleteExample/AutoCompletedText';
 import './App.css';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/student-statics">
             <StudentStatics studentData={students} />
           </Route>
+          <Route path="/autocomplete-example" component={AutoCompletedText} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>
