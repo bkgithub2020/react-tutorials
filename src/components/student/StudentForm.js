@@ -8,7 +8,8 @@ import AddressDetails from './AddressDetails';
 import ParentDetails from './ParentDetails';
 import Button from '@mui/material/Button';
 import AlertSuccess from '../common/AlertSuccess';
-import { addStudent } from '../../redux/actions/StudentActions';
+// import { addStudent } from '../../redux/actions/StudentActions';
+import { addStudent } from '../../redux/slices/studentSlice';
 
 export default function StudentForm({ setStudentsFunc, studentData }) {
     const [submitted, setSubmitted] = useState(false);

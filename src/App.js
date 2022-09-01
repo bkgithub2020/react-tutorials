@@ -8,6 +8,8 @@ import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Header from './components/common/Header';
 import AutoCompletedText from './components/autocompleteExample/AutoCompletedText';
+import ReactGoogleMap from './components/google-map-example/ReactGoogleMap';
+import MemoryGame from './components/memory-game/MemoryGame';
 import './App.css';
 
 function App() {
@@ -45,6 +47,8 @@ function App() {
             <StudentStatics studentData={students} />
           </Route>
           <Route path="/autocomplete-example" component={AutoCompletedText} />
+          <Route path="/react-google-map" component={ReactGoogleMap} />
+          <Route path="/react-memory-game" component={MemoryGame} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>
