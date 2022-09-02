@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 import AlertSuccess from '../common/AlertSuccess';
 import Button from '@mui/material/Button';
 import Validations from '../../helper/validation';
-import { addHotelDates } from '../../redux/slices/hotelDateSlice';
+import { setHotelRate } from "../../redux/thunk/hotelRate";
 
 
 const Rooms = [
@@ -99,9 +99,7 @@ function HotelRoomPriceForm() {
                     room3: parseFloat(formState.values.room3) + ((parseFloat(formState.values.room3) * parseFloat((amtPercentage)) / 100))
                 };
 
-                console.log("requestData", requestData)
-
-                dispatch(addHotelDates(requestData)); //After Redux                
+                dispatch(setHotelRate(requestData)); //After Redux                
             }
 
             console.log("hotelDates", hotelDates)
