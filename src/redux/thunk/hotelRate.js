@@ -6,8 +6,9 @@ import store from '../store';
 export const setHotelRate = createAsyncThunk("setHotelRate", async (_request, { dispatch }) => {
     try {
         let hotelDatelist = store.getState().hotelDateReducer.hotelDateList;
-        console.log(hotelDatelist)
         dispatch(addHotelDates(_request));
+
+        // Set data in local storage
         localStorage.setItem(
             'hotelDates',
             JSON.stringify(
@@ -16,6 +17,7 @@ export const setHotelRate = createAsyncThunk("setHotelRate", async (_request, { 
                     ..._request
                 }
             ));
+
     } catch (error) {
         console.log(error)
     }
