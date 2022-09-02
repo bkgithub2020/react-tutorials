@@ -102,15 +102,6 @@ function HotelRoomPriceForm() {
                 dispatch(setHotelRate(requestData)); //After Redux                
             }
 
-            console.log("hotelDates", hotelDates)
-            // localStorage.setItem(
-            //     'hotelDates',
-            //     JSON.stringify(
-            //         {
-            //             ...hotelDates
-            //         }
-            //     ));
-
             setFormState({ values: {} });
             setDateUpdated('start_date', '');
             setDateUpdated('end_date', '');
