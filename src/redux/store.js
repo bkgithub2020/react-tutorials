@@ -14,12 +14,17 @@
 // export default store;
 
 import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from 'redux';
 import { studentReducer } from "./reducers/StudentReducer";
+import hotelSettingReducer from "./slices/hotelSettingsSlice";
+import hotelDateReducer from "./slices/hotelDateSlice";
 
-const store = configureStore({
-    reducer: {
-        student: studentReducer
-    }
-})
+const rootReducer = combineReducers({
+    student: studentReducer,
+    hotelSettingReducer,
+    hotelDateReducer
+});
+
+const store = configureStore({ reducer: rootReducer });
 
 export default store;

@@ -10,6 +10,8 @@ import Header from './components/common/Header';
 import AutoCompletedText from './components/autocompleteExample/AutoCompletedText';
 import ReactGoogleMap from './components/google-map-example/ReactGoogleMap';
 import MemoryGame from './components/memory-game/MemoryGame';
+import HotelSettingForm from './components/hotel/HotelSettingForm';
+import HotelRoomPriceForm from './components/hotel/HotelRoomPriceForm';
 import './App.css';
 
 function App() {
@@ -49,6 +51,8 @@ function App() {
           <Route path="/autocomplete-example" component={AutoCompletedText} />
           <Route path="/react-google-map" component={ReactGoogleMap} />
           <Route path="/react-memory-game" component={MemoryGame} />
+          <Route path="/hotel-settings" component={HotelSettingForm} />
+          <Route path="/hotel-add-price" component={HotelRoomPriceForm} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>
