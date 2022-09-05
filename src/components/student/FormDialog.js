@@ -65,7 +65,12 @@ export default function FormDialog({ openStatus, handleCloseDialogFunc }) {
                     Edit Student
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
-                    <StudentForm setStudentsFunc={setStudents} studentData={currentStudentData} isEditFormMode="1" />
+                    <StudentForm
+                        setStudentsFunc={setStudents}
+                        studentData={currentStudentData}
+                        isEditFormMode="1"
+                        handleCloseDialogFunc={handleCloseDialogFunc}
+                    />
                 </DialogContent>
             </BootstrapDialog>
         </div>

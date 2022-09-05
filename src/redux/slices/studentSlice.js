@@ -24,8 +24,14 @@ export const studentSlice = createSlice({
         setStudentDetail: (state, { type, payload }) => ({
             ...state, studentDetail: payload
         }),
-        editStudentDetail: (state, { type, payload }) => ({
-            state
+        updateStudent: (state, { type, payload }) => ({
+            ...state,
+            studentDetail: payload,
+            studentsList: state.studentsList.map(p =>
+                p.id === payload.id
+                    ? { ...payload }
+                    : p
+            )
         }),
         deleteStudent: (state, { type, payload }) => ({
             state
@@ -34,6 +40,6 @@ export const studentSlice = createSlice({
     }
 })
 
-export const { addStudent, setStudentDetail } = studentSlice.actions;
+export const { addStudent, setStudentDetail, updateStudent, deleteStudent } = studentSlice.actions;
 
 export default studentSlice.reducer;

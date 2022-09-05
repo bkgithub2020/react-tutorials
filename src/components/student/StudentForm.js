@@ -9,9 +9,10 @@ import ParentDetails from './ParentDetails';
 import Button from '@mui/material/Button';
 import AlertSuccess from '../common/AlertSuccess';
 // import { addStudent } from '../../redux/actions/StudentActions';
-import { addStudent } from '../../redux/slices/studentSlice';
+import { addStudent, updateStudent } from '../../redux/slices/studentSlice';
+import short from 'short-uuid';
 
-export default function StudentForm({ setStudentsFunc, studentData, isEditFormMode = 0 }) {
+export default function StudentForm({ setStudentsFunc, studentData, isEditFormMode = 0, handleCloseDialogFunc }) {
     const [submitted, setSubmitted] = useState(false);
     const [formState, setFormState] = useState({
         values: {}
@@ -41,12 +42,24 @@ export default function StudentForm({ setStudentsFunc, studentData, isEditFormMo
         const { firstName, lastName, gender, address1, city, state, zip, country } = formState.values;
 
         if (firstName && lastName && gender && address1 && city && state && zip && country) {
-            setStudentsFunc([...studentData, formState.values]);//Before redux data in local storage
-            dispatch(addStudent(formState.values)); //After Redux
-            setFormState({ values: {} });
-            setSubmitted(false);
-            setOpenState(true);
-            setMessage("Student Added Successfully!");
+            if (isEditFormMode) {
+                setStudentsFunc({ ...studentData, ...formState.values });//Before redux data in local storage
+                dispatch(updateStudent(formState.values)); //After Redux
+                setFormState({ values: {} });
+                setSubmitted(false);
+                setOpenState(true);
+                handleCloseDialogFunc(false);
+                setMessage("Student Updated Successfully!");
+            } else {
+                const uniqueID = short.generate();
+                formState.values.id = uniqueID;
+                setStudentsFunc([...studentData, formState.values]);//Before redux data in local storage
+                dispatch(addStudent(formState.values)); //After Redux
+                setFormState({ values: {} });
+                setSubmitted(false);
+                setOpenState(true);
+                setMessage("Student Added Successfully!");
+            }
 
         }
     }

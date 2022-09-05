@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MUIDataTable from "mui-datatables";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,7 +9,7 @@ import { setStudentDetail } from '../../redux/slices/studentSlice';
 
 function StudentList({ studentData }) {
     const studentDataFromStore = useSelector((state) => state.student.studentsList);
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
 
     const columns = [
@@ -93,7 +93,6 @@ function StudentList({ studentData }) {
     const handleCloseDialog = () => {
         setOpen(false);
     };
-
 
     return (
         <>
