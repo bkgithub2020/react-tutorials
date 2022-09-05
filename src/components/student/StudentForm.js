@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -11,7 +11,7 @@ import AlertSuccess from '../common/AlertSuccess';
 // import { addStudent } from '../../redux/actions/StudentActions';
 import { addStudent } from '../../redux/slices/studentSlice';
 
-export default function StudentForm({ setStudentsFunc, studentData }) {
+export default function StudentForm({ setStudentsFunc, studentData, isEditFormMode = 0 }) {
     const [submitted, setSubmitted] = useState(false);
     const [formState, setFormState] = useState({
         values: {}
@@ -54,6 +54,12 @@ export default function StudentForm({ setStudentsFunc, studentData }) {
     const handleClose = (event, reason) => {
         setOpenState(false);
     };
+
+    useEffect(() => {
+        if (isEditFormMode) {
+            setFormState({ values: studentData });
+        }
+    }, [])
 
     return (
         <Box>

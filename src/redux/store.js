@@ -15,7 +15,8 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from 'redux';
-import { studentReducer } from "./reducers/StudentReducer";
+// import { studentReducer } from "./reducers/StudentReducer";
+import studentReducer from "./slices/studentSlice";
 import hotelSettingReducer from "./slices/hotelSettingsSlice";
 import hotelDateReducer from "./slices/hotelDateSlice";
 

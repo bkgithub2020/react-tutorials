@@ -10,7 +10,8 @@ const getLocalStudentItems = () => {
 }
 
 const initialState = {
-    studentsList: getLocalStudentItems()
+    studentsList: getLocalStudentItems(),
+    studentDetail: {}
 }
 
 export const studentSlice = createSlice({
@@ -19,11 +20,20 @@ export const studentSlice = createSlice({
     reducers: {
         addStudent: (state, { type, payload }) => ({
             studentsList: [...state.studentsList, payload]
+        }),
+        setStudentDetail: (state, { type, payload }) => ({
+            ...state, studentDetail: payload
+        }),
+        editStudentDetail: (state, { type, payload }) => ({
+            state
+        }),
+        deleteStudent: (state, { type, payload }) => ({
+            state
         })
 
     }
 })
 
-export const { addStudent } = studentSlice.actions;
+export const { addStudent, setStudentDetail } = studentSlice.actions;
 
 export default studentSlice.reducer;
