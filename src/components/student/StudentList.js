@@ -5,11 +5,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useSelector, useDispatch } from 'react-redux';
 import FormDialog from '../student/FormDialog';
 import { setStudentDetail } from '../../redux/slices/studentSlice';
+import ConfirmationDialog from '../common/ConfirmationDialog';
+import { deleteStudentThunk } from "../../redux/thunk/studentThunk";
+import AlertSuccess from '../common/AlertSuccess';
 
-
-function StudentList({ studentData }) {
+function StudentList() {
     const studentDataFromStore = useSelector((state) => state.student.studentsList);
     const [open, setOpen] = useState(false);
+    const [openConfirm, setOpenConfirm] = useState(false);
+    const [currentSelectedIndex, setCurrentSelectedIndex] = useState(-1);
+    const [openState, setOpenState] = useState(false);
+    const [message, setMessage] = useState("");
     const dispatch = useDispatch();
 
     const columns = [
@@ -63,7 +69,7 @@ function StudentList({ studentData }) {
                     return (
                         <>
                             <ModeEditIcon className="table-action-icon" onClick={() => editStudentData(dataIndex)} />
-                            <DeleteIcon className="table-action-icon" onClick={() => editStudentData(dataIndex)} />
+                            <DeleteIcon className="table-action-icon" onClick={() => deleteStudentData(dataIndex)} />
                         </>
 
                     );
@@ -86,16 +92,36 @@ function StudentList({ studentData }) {
         setOpen(true)
     }
 
-    const deleteStudentData = () => {
-
+    const deleteStudentData = (dataIndex) => {
+        setCurrentSelectedIndex(dataIndex);
+        setOpenConfirm(true)
     }
 
     const handleCloseDialog = () => {
+        setCurrentSelectedIndex(-1);
         setOpen(false);
+    };
+
+    const handleCloseOkConfirm = () => {
+        dispatch(deleteStudentThunk(studentDataFromStore[currentSelectedIndex]));
+        setOpenConfirm(false);
+        setCurrentSelectedIndex(-1);
+        setOpenState(true);
+        setMessage("Student Deleted Successfully!");
+    };
+
+    const handleCloseCancelConfirm = () => {
+        setOpenConfirm(false);
+        setCurrentSelectedIndex(-1);
+    };
+
+    const handleClose = (event, reason) => {
+        setOpenState(false);
     };
 
     return (
         <>
+            <AlertSuccess open={openState} message={message} handleClose={handleClose} />
             <MUIDataTable
                 title={"Student List"}
                 data={studentDataFromStore}
@@ -103,6 +129,12 @@ function StudentList({ studentData }) {
                 options={options}
             />
             <FormDialog openStatus={open} handleCloseDialogFunc={handleCloseDialog} />
+            <ConfirmationDialog
+                openStatus={openConfirm}
+                textContent="Are you sure you want to delete this record?"
+                confirmOkFunc={handleCloseOkConfirm}
+                confirmCancelFunc={handleCloseCancelConfirm}
+            />
         </>
     )
 }

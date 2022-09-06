@@ -48,8 +48,9 @@ export default function StudentForm({ setStudentsFunc, studentData, isEditFormMo
                 setFormState({ values: {} });
                 setSubmitted(false);
                 setOpenState(true);
-                handleCloseDialogFunc(false);
                 setMessage("Student Updated Successfully!");
+                handleCloseDialogFunc(false);
+
             } else {
                 const uniqueID = short.generate();
                 formState.values.id = uniqueID;
@@ -110,7 +111,7 @@ export default function StudentForm({ setStudentsFunc, studentData, isEditFormMo
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >
-                                    Save
+                                    {isEditFormMode ? "Update" : "Save"}
                                 </Button>
                             </Grid>
 

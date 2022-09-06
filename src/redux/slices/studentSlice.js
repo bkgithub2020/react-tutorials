@@ -33,8 +33,10 @@ export const studentSlice = createSlice({
                     : p
             )
         }),
-        deleteStudent: (state, { type, payload }) => ({
-            state
+        deleteStudent: (state, { payload }) => ({
+            ...state,
+            studentDetail: payload,
+            studentsList: state.studentsList.filter(std => std.id !== payload.id)
         })
 
     }
