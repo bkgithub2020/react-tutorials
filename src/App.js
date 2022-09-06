@@ -12,6 +12,7 @@ import ReactGoogleMap from './components/google-map-example/ReactGoogleMap';
 import MemoryGame from './components/memory-game/MemoryGame';
 import HotelSettingForm from './components/hotel/HotelSettingForm';
 import HotelRoomPriceForm from './components/hotel/HotelRoomPriceForm';
+import LoginForm from './components/google-login/LoginForm';
 import './App.css';
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route path="/react-memory-game" component={MemoryGame} />
           <Route path="/hotel-settings" component={HotelSettingForm} />
           <Route path="/hotel-add-price" component={HotelRoomPriceForm} />
+          <Route path="/login" component={LoginForm} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>

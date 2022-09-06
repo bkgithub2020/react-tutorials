@@ -1,3 +1,6 @@
+const emailRegex =
+    /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 const Validations = {
     validateHoteldatSetting: (data) => {
         const errors = {};
@@ -53,6 +56,18 @@ const Validations = {
         }
 
 
+        return errors;
+    },
+    validateLoginForm: (data) => {
+        const errors = {};
+        if (!data.email) {
+            errors.email = "Email is required";
+        } else if (!emailRegex.test(data.email)) {
+            errors.email = "Add a valid email address";
+        }
+        if (!data.password) {
+            errors.password = "Password is required";
+        }
         return errors;
     }
 };

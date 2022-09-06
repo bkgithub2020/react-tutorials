@@ -18,11 +18,13 @@ import { combineReducers } from 'redux';
 import studentReducer from "./slices/studentSlice";
 import hotelSettingReducer from "./slices/hotelSettingsSlice";
 import hotelDateReducer from "./slices/hotelDateSlice";
+import googleAuthReducer from "./slices/googleAuthSlice";
 
 const rootReducer = combineReducers({
     student: studentReducer,
     hotelSettingReducer,
-    hotelDateReducer
+    hotelDateReducer,
+    googleAuthReducer
 });
 
 const store = configureStore({ reducer: rootReducer });
