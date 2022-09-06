@@ -70,9 +70,12 @@ export default function LoginForm() {
 
 
     const onSuccess = (res) => {
-        dispatch(setLoggedInStatus(true))
+        const tokenId = res.tokenId;
+        const profileData = res.profileObj;
+        dispatch(setLoggedInStatus({ status: true, tokenId, profileData }))
     };
     const onFailure = (err) => {
+        console.log(err)
         dispatch(setLoggedInStatus(false));
     };
 
