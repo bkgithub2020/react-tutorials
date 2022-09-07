@@ -15,22 +15,30 @@ function Calendar() {
     const [calendarEvents, setCalendarEvents] = useState([]);
 
     const handleDates = (rangeInfo) => {
-        let calendarData = [];
         const calendarEventsData = [];
         const object = hotelData.prices.data;
-        for (const property in object) {
-            if (property >= moment(rangeInfo.start).format('YYYY-MM-DD')
-                && property < moment(rangeInfo.end).format('YYYY-MM-DD')) {
-                calendarData.push(object[property]);
-                let item = object[property];
-                for (const pInner in item) {
-                    if (!item[pInner].error && item[pInner].price) {
-                        calendarEventsData.push({ title: `Room #${pInner} rate $${item[pInner].price}`, date: property })
+
+        // convert object to key's array
+        const objectKeys = Object.keys(object);
+
+        // iterate over object
+        objectKeys.forEach((key, index) => {
+            if (key >= moment(rangeInfo.start).format('YYYY-MM-DD')
+                && key < moment(rangeInfo.end).format('YYYY-MM-DD')
+            ) {
+                let item = object[key];
+                // convert object to key's array
+                const itemObjKeys = Object.keys(object[key]);
+
+                // iterate over inner object
+                itemObjKeys.forEach((objKey, objIndex) => {
+                    if (!item[objKey].error && item[objKey].price) {
+                        calendarEventsData.push({ title: `Room #${objKey} rate $${item[objKey].price}`, date: key })
                     }
-                }
+                });
 
             }
-        }
+        });
 
         setCalendarEvents(calendarEventsData);//SET CALENDAR DATA
     }
