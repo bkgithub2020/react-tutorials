@@ -69,6 +69,13 @@ const Validations = {
             errors.password = "Password is required";
         }
         return errors;
+    },
+    validateEventForm: (data) => {
+        const errors = {};
+        if (!data.event_title) {
+            errors.event_title = "Title is required";
+        }
+        return errors;
     }
 };
 

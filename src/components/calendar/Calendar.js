@@ -3,13 +3,13 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import moment from 'moment';
-import hotelData from '../../json-data/hotelData.json';
 import RoomDropdown from './RoomDropdown';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCalendarDataThunk } from '../../redux/thunk/calendarThunk';
 import { setSelectedRooms } from '../../redux/slices/calendarSlice';
+import DialogModal from '../common/DialogModal';
+import EventForm from './EventForm';
 
 // const calendarEvents = [
 //     { title: 'event 1', date: '2022-09-01' },
@@ -19,6 +19,8 @@ import { setSelectedRooms } from '../../redux/slices/calendarSlice';
 function Calendar() {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
+    const [eventDate, setEventDate] = useState("");
+    const [openModal, setOpenModal] = useState(false);
     const { calendarData, rooms, selectedRooms } = useSelector((state) => state.calendarReducer);
     const dispatch = useDispatch();
 
@@ -39,8 +41,49 @@ function Calendar() {
         dispatch(setSelectedRooms(event.target.value))
     }
 
+    const handleDateClick = (arg) => {
+        setEventDate(arg.date)
+        setOpenModal(true);
+    }
+
+    const handleClickOpen = () => {
+        setOpenModal(true);
+    };
+
+    const handleClose = () => {
+        setEventDate("")
+        setOpenModal(false);
+    };
+
+    const handleEventClick = ({ event, el }) => {
+
+    };
+
+    const handleDateSelect = (selectInfo) => {
+
+        let calendarApi = selectInfo.view.calendar
+        let title = prompt('Please enter a new title for your event')
+
+        calendarApi.unselect() // clear date selection
+
+        if (title) {
+            calendarApi.addEvent({ // will render immediately. will call handleEventAdd
+                title,
+                start: selectInfo.startStr,
+                end: selectInfo.endStr,
+                allDay: selectInfo.allDay
+            }, true) // temporary=true, will get overwritten when reducer gives new events
+        }
+    }
+
+    const handleEventChange = (changeInfo) => {
+        console.log(changeInfo.event.toPlainObject())
+    }
+
+
     return (
         <>
+            <DialogModal visibility={openModal} handleClickOpenFunc={handleClickOpen} handleCloseFunc={handleClose} component={<EventForm eventDate={eventDate} />} />
             <RoomDropdown roomsData={rooms} handleRoomFilterFunc={handleRoomFilter} selectedRoom={selectedRooms} />
             <FullCalendar
                 plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
@@ -53,6 +96,11 @@ function Calendar() {
                 weekends={true}
                 events={calendarData}
                 datesSet={handleDates}
+                dateClick={handleDateClick}
+                eventClick={handleEventClick}
+                eventChange={handleEventChange} // called for drag-n-drop/resize
+                selectable={true}
+
             />
         </>
 

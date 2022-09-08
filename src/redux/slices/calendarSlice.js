@@ -21,10 +21,13 @@ export const calendarSlice = createSlice({
         }),
         setRoomItem: (state, { type, payload }) => ({
             ...state, calendarData: [...state.calendarData, payload]
+        }),
+        addCalendarEvent: (state, { type, payload }) => ({
+            ...state, calendarData: [...state.calendarData, payload]
         })
     }
 })
 
-export const { resetCalendarData, setRooms, setSelectedRooms, setRoomItem } = calendarSlice.actions;
+export const { resetCalendarData, setRooms, setSelectedRooms, setRoomItem, addCalendarEvent } = calendarSlice.actions;
 
 export default calendarSlice.reducer;

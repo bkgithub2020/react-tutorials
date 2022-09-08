@@ -9,7 +9,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 function RoomDropdown({ roomsData, handleRoomFilterFunc, selectedRoom = "" }) {
     return (
         <Box sx={{ minWidth: 120, mb: 3 }}>
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl sx={{ minWidth: 120 }} size="small">
                 <InputLabel id="room-dropdown-lbl">Room</InputLabel>
                 <Select
                     labelId="room-dropdown-lbl"
