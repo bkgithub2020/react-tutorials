@@ -13,18 +13,21 @@
 
 // export default store;
 
+// REDUX TOOLKIT
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from 'redux';
 import studentReducer from "./slices/studentSlice";
 import hotelSettingReducer from "./slices/hotelSettingsSlice";
 import hotelDateReducer from "./slices/hotelDateSlice";
 import googleAuthReducer from "./slices/googleAuthSlice";
+import calendarReducer from "./slices/calendarSlice";
 
 const rootReducer = combineReducers({
     student: studentReducer,
     hotelSettingReducer,
     hotelDateReducer,
-    googleAuthReducer
+    googleAuthReducer,
+    calendarReducer
 });
 
 const store = configureStore({ reducer: rootReducer });

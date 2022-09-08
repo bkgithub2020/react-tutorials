@@ -7,6 +7,9 @@ import moment from 'moment';
 import hotelData from '../../json-data/hotelData.json';
 import RoomDropdown from './RoomDropdown';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCalendarDataThunk } from '../../redux/thunk/calendarThunk';
+import { setSelectedRooms } from '../../redux/slices/calendarSlice';
 
 // const calendarEvents = [
 //     { title: 'event 1', date: '2022-09-01' },
@@ -14,12 +17,10 @@ import { useEffect } from 'react';
 // ];
 
 function Calendar() {
-    const [calendarEvents, setCalendarEvents] = useState([]);
-    const [rooms, setRooms] = useState([]);
-    const [room, setRoom] = useState([]);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    let calendarEventsData = [];
+    const { calendarData, rooms, selectedRooms } = useSelector((state) => state.calendarReducer);
+    const dispatch = useDispatch();
 
     const handleDates = (rangeInfo) => {
         setStartDate(rangeInfo.start);
@@ -27,59 +28,20 @@ function Calendar() {
     }
 
     const filterData = () => {
-        const object = hotelData.prices.data;
-        calendarEventsData = [];//Reset
-
-        // convert object to key's array
-        const objectKeys = Object.keys(object);
-
-        // iterate over object
-        objectKeys.forEach((key, index) => {
-            if (key >= moment(startDate).format('YYYY-MM-DD')
-                && key < moment(endDate).format('YYYY-MM-DD')
-            ) {
-                let item = object[key];
-                // convert object to key's array
-                const itemObjKeys = (room && (room.length > 0)) ? [room] : Object.keys(object[key]);
-                setRoomData(itemObjKeys, item, key, (room && (room.length > 0)) ? true : false);
-            }
-        });
-
-
-
-    }
-
-    const setRoomData = (itemObjKeys, item, key, filterStatus) => {
-        const roomData = [];
-        // iterate over inner object
-        itemObjKeys.forEach((objKey, objIndex) => {
-            if (objKey !== 'property' && !filterStatus) {
-                roomData.push(objKey)
-            }
-
-            if (!item[objKey].error && item[objKey].price) {
-                calendarEventsData.push({ title: `Room #${objKey} rate $${item[objKey].price}`, date: key })
-            }
-        });
-
-        if (!filterStatus) {
-            setRooms([...new Set(roomData)]);
-        }
-
-        setCalendarEvents(calendarEventsData);//SET CALENDAR DATA
+        dispatch(setCalendarDataThunk({ startDate, endDate, selectedRooms }));
     }
 
     useEffect(() => {
         filterData();
-    }, [startDate, endDate, room])
+    }, [startDate, endDate, selectedRooms])
 
     const handleRoomFilter = (event) => {
-        setRoom(event.target.value);
+        dispatch(setSelectedRooms(event.target.value))
     }
 
     return (
         <>
-            <RoomDropdown roomsData={rooms} handleRoomFilterFunc={handleRoomFilter} selectedRoom={room} />
+            <RoomDropdown roomsData={rooms} handleRoomFilterFunc={handleRoomFilter} selectedRoom={selectedRooms} />
             <FullCalendar
                 plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
@@ -89,7 +51,7 @@ function Calendar() {
                     right: "dayGridMonth,timeGridWeek,timeGridDay",
                 }}
                 weekends={true}
-                events={calendarEvents}
+                events={calendarData}
                 datesSet={handleDates}
             />
         </>
