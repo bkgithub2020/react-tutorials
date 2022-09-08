@@ -10,6 +10,7 @@ import { setCalendarDataThunk } from '../../redux/thunk/calendarThunk';
 import { setSelectedRooms } from '../../redux/slices/calendarSlice';
 import DialogModal from '../common/DialogModal';
 import EventForm from './EventForm';
+import EventDetail from './EventDetail';
 
 // const calendarEvents = [
 //     { title: 'event 1', date: '2022-09-01' },
@@ -21,6 +22,8 @@ function Calendar() {
     const [endDate, setEndDate] = useState("");
     const [eventDate, setEventDate] = useState("");
     const [openModal, setOpenModal] = useState(false);
+    const [isDetailModal, setIsDetailModal] = useState(false);
+    const [eventDetail, setEventDetail] = useState("");
     const { calendarData, rooms, selectedRooms } = useSelector((state) => state.calendarReducer);
     const dispatch = useDispatch();
 
@@ -47,6 +50,7 @@ function Calendar() {
     }
 
     const handleClickOpen = () => {
+        setIsDetailModal(false);
         setOpenModal(true);
     };
 
@@ -56,7 +60,9 @@ function Calendar() {
     };
 
     const handleEventClick = ({ event, el }) => {
-
+        setEventDetail(event);
+        setOpenModal(true);
+        setIsDetailModal(true);
     };
 
     const handleDateSelect = (selectInfo) => {
@@ -83,7 +89,7 @@ function Calendar() {
 
     return (
         <>
-            <DialogModal visibility={openModal} handleClickOpenFunc={handleClickOpen} handleCloseFunc={handleClose} component={<EventForm eventDate={eventDate} />} />
+            <DialogModal visibility={openModal} handleClickOpenFunc={handleClickOpen} handleCloseFunc={handleClose} component={isDetailModal ? <EventDetail data={eventDetail} /> : <EventForm eventDate={eventDate} />} />
             <RoomDropdown roomsData={rooms} handleRoomFilterFunc={handleRoomFilter} selectedRoom={selectedRooms} />
             <FullCalendar
                 plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
@@ -100,6 +106,8 @@ function Calendar() {
                 eventClick={handleEventClick}
                 eventChange={handleEventChange} // called for drag-n-drop/resize
                 selectable={true}
+                editable={true}
+                dayMaxEvents={true} // when too many events in a day, show the popover
 
             />
         </>
