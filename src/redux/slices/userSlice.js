@@ -1,12 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let token = localStorage.getItem('authToken');
-
-if (typeof token === undefined) {
-    token = "";
-}
-
 const getTokenFromLocal = () => {
+    let token = localStorage.getItem('authToken')
     if (token) {
         return true;
     } else {
@@ -15,13 +10,11 @@ const getTokenFromLocal = () => {
 }
 
 const initialState = {
-    isLoggedIn: getTokenFromLocal(),
-    token,
-    isGoogleLogin: false
+    isLoggedIn: getTokenFromLocal()
 }
 
-export const googleAuthSlice = createSlice({
-    name: "student",
+export const userAuthSlice = createSlice({
+    name: "user",
     initialState,
     reducers: {
         setSignedIn: (state, { payload }) => ({
@@ -30,6 +23,6 @@ export const googleAuthSlice = createSlice({
     }
 })
 
-export const { setSignedIn } = googleAuthSlice.actions;
+export const { setSignedIn } = userAuthSlice.actions;
 
-export default googleAuthSlice.reducer;
+export default userAuthSlice.reducer;

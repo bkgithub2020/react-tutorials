@@ -8,8 +8,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 
-function AlertSuccess({ message, open, handleClose }) {
-
+function AlertSuccess({ message, open, handleClose, errorStatus = false }) {
+    const alertType = errorStatus ? 'error' : 'success';
     return (
         <>
             <Snackbar
@@ -22,7 +22,7 @@ function AlertSuccess({ message, open, handleClose }) {
                 autoHideDuration={1500}
                 onClose={handleClose}
             >
-                <Alert severity="success" sx={{ width: '100%' }}>
+                <Alert severity={alertType} sx={{ width: '100%' }}>
                     {message}
                 </Alert>
             </Snackbar>

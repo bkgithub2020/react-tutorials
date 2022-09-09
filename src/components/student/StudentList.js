@@ -7,7 +7,7 @@ import FormDialog from '../student/FormDialog';
 import { setStudentDetail } from '../../redux/slices/studentSlice';
 import ConfirmationDialog from '../common/ConfirmationDialog';
 import { deleteStudentThunk } from "../../redux/thunk/studentThunk";
-import AlertSuccess from '../common/AlertSuccess';
+import AlertMessage from '../common/AlertMessage';
 
 function StudentList() {
     const studentDataFromStore = useSelector((state) => state.student.studentsList);
@@ -121,7 +121,7 @@ function StudentList() {
 
     return (
         <>
-            <AlertSuccess open={openState} message={message} handleClose={handleClose} />
+            <AlertMessage open={openState} message={message} handleClose={handleClose} />
             <MUIDataTable
                 title={"Student List"}
                 data={studentDataFromStore}

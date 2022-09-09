@@ -3,15 +3,23 @@ import { setSignedIn } from '../slices/googleAuthSlice';
 
 export const setLoggedInStatus = createAsyncThunk("setLoggedInStatus", async (_request, { dispatch }) => {
     try {
+        _request.isGoogleLogin = true;
+        _request.token = _request.tokenId;
+
         dispatch(setSignedIn(_request));
 
         if (_request.status) {
             localStorage.setItem(
-                'authTokenGoogle',
+                'authToken',
                 _request.tokenId
             );
+            localStorage.setItem(
+                'isGoogleLogin',
+                true
+            );
         } else {
-            localStorage.removeItem('authTokenGoogle');
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('isGoogleLogin');
         }
 
 

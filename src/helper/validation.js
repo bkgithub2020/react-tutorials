@@ -60,11 +60,12 @@ const Validations = {
     },
     validateLoginForm: (data) => {
         const errors = {};
-        if (!data.email) {
-            errors.email = "Email is required";
-        } else if (!emailRegex.test(data.email)) {
-            errors.email = "Add a valid email address";
+        if (!data.username) {
+            errors.username = "Email is required";
         }
+        /* else if (!emailRegex.test(data.username)) {
+            errors.username = "Add a valid email address";
+        } */
         if (!data.password) {
             errors.password = "Password is required";
         }

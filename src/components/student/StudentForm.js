@@ -7,7 +7,7 @@ import PersonalDetails from './PersonalDetails';
 import AddressDetails from './AddressDetails';
 import ParentDetails from './ParentDetails';
 import Button from '@mui/material/Button';
-import AlertSuccess from '../common/AlertSuccess';
+import AlertMessage from '../common/AlertMessage';
 // import { addStudent } from '../../redux/actions/StudentActions';
 import { addStudent, updateStudent } from '../../redux/slices/studentSlice';
 import short from 'short-uuid';
@@ -77,7 +77,7 @@ export default function StudentForm({ setStudentsFunc, studentData, isEditFormMo
 
     return (
         <Box>
-            <AlertSuccess open={openState} message={message} handleClose={handleClose} />
+            <AlertMessage open={openState} message={message} handleClose={handleClose} />
             <Grid container spacing={2} sx={{
                 display: 'flex',
                 alignItems: 'center',

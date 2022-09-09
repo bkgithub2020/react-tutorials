@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import AlertSuccess from '../common/AlertSuccess';
+import AlertMessage from '../common/AlertMessage';
 import Button from '@mui/material/Button';
 import Validations from '../../helper/validation';
 import moment from 'moment';
@@ -59,7 +59,7 @@ function EventForm({ eventDate, handleCloseFunc }) {
     return (
         <>
             <Box>
-                <AlertSuccess open={openState} message={message} handleClose={handleClose} />
+                <AlertMessage open={openState} message={message} handleClose={handleClose} />
                 <Grid container spacing={2} sx={{
                     display: 'flex',
                     alignItems: 'center',

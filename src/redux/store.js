@@ -21,13 +21,17 @@ import hotelSettingReducer from "./slices/hotelSettingsSlice";
 import hotelDateReducer from "./slices/hotelDateSlice";
 import googleAuthReducer from "./slices/googleAuthSlice";
 import calendarReducer from "./slices/calendarSlice";
+import userReducer from "./slices/userSlice";
+import alertReducer from "./slices/alertSlice";
 
 const rootReducer = combineReducers({
     student: studentReducer,
     hotelSettingReducer,
     hotelDateReducer,
     googleAuthReducer,
-    calendarReducer
+    calendarReducer,
+    userReducer,
+    alertReducer
 });
 
 const store = configureStore({ reducer: rootReducer });

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Route } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import AlertSuccess from '../common/AlertSuccess';
 import TextField from '@mui/material/TextField';
 import Validations from '../../helper/validation';
 import GoogleLogin from "react-google-login";
 import { gapi } from 'gapi-script';
 import { setLoggedInStatus } from '../../redux/thunk/googleAuthThunk';
+import { setLoggedInStatusUser } from '../../redux/thunk/userThunk';
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -20,7 +21,6 @@ export default function LoginForm() {
     const [message, setMessage] = useState("");
     const [openState, setOpenState] = useState(false);
     const [errors, setErrors] = useState({});
-    const [isSignedIn, setIsSignedIn] = useState(false);
     const loggedInStatus = useSelector((state) => state.googleAuthReducer.isLoggedIn)
     const dispatch = useDispatch();
 
@@ -49,6 +49,7 @@ export default function LoginForm() {
         setErrors(error);
 
         if (!Object.keys(error).length) {
+            dispatch(setLoggedInStatusUser(formState.values))
             setFormState({ values: {} });
             setMessage("Login Successfully!");
         }
@@ -59,8 +60,9 @@ export default function LoginForm() {
     };
 
     useEffect(() => {
+        //Login with Google Functionality
         const initClient = () => {
-            gapi.client.init({
+            gapi.auth2.init({
                 clientId: CLIENT_ID,
                 scope: ''
             });
@@ -79,9 +81,15 @@ export default function LoginForm() {
         dispatch(setLoggedInStatus(false));
     };
 
+    console.log("loggedInStatus", loggedInStatus)
+
+    if (loggedInStatus) {
+        return <Redirect to={"/users"} />;
+    }
+
     return (
         <Box>
-            <AlertSuccess open={openState} message={message} handleClose={handleClose} />
+            {/* <AlertSuccess open={openState} message={message} handleClose={handleClose} */}
             <Grid container spacing={2} sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -97,16 +105,16 @@ export default function LoginForm() {
 
                             <Grid item xs={12} sm={12}>
                                 <TextField
-                                    id="email"
-                                    name="email"
+                                    id="username"
+                                    name="username"
                                     label="Email*"
                                     fullWidth
                                     autoComplete="given-name"
                                     variant="standard"
                                     onChange={handleChange}
-                                    value={formState.values.email || ''}
-                                    error={errors && errors['email'] ? true : false}
-                                    helperText={errors && errors['email']}
+                                    value={formState.values.username || ''}
+                                    error={errors && errors['username'] ? true : false}
+                                    helperText={errors && errors['username']}
                                 />
                             </Grid>
 
