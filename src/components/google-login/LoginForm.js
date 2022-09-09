@@ -89,7 +89,6 @@ export default function LoginForm() {
 
     return (
         <Box>
-            {/* <AlertSuccess open={openState} message={message} handleClose={handleClose} */}
             <Grid container spacing={2} sx={{
                 display: 'flex',
                 alignItems: 'center',
