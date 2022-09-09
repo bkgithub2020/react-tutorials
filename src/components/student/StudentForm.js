@@ -84,7 +84,7 @@ export default function StudentForm({ setStudentsFunc, studentData, isEditFormMo
                 justifyContent: 'center',
             }}>
 
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                     <Typography variant="h4" gutterBottom>
                         Student Form
                     </Typography>
