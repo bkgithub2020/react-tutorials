@@ -8,6 +8,7 @@ import { setStudentDetail } from '../../redux/slices/studentSlice';
 import ConfirmationDialog from '../common/ConfirmationDialog';
 import { deleteStudentThunk } from "../../redux/thunk/studentThunk";
 import AlertMessage from '../common/AlertMessage';
+import StudentForm from './StudentForm';
 
 function StudentList() {
     const studentDataFromStore = useSelector((state) => state.student.studentsList);
@@ -128,7 +129,17 @@ function StudentList() {
                 columns={columns}
                 options={options}
             />
-            <FormDialog openStatus={open} handleCloseDialogFunc={handleCloseDialog} />
+            <FormDialog
+                openStatus={open}
+                handleCloseDialogFunc={handleCloseDialog}
+                component={
+                    <StudentForm
+                        isEditFormMode="1"
+                        handleCloseDialogFunc={handleCloseDialog}
+                    />
+                }
+                formTitle="Edit Student"
+            />
             <ConfirmationDialog
                 openStatus={openConfirm}
                 textContent="Are you sure you want to delete this record?"

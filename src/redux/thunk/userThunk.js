@@ -1,9 +1,54 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setSignedIn } from '../slices/googleAuthSlice';
 import { setAlert } from '../slices/alertSlice';
-import { deleteUser, setUsersList } from '../../redux/slices/userSlice';
+import { addUser, updateUser, deleteUser, setUsersList } from '../../redux/slices/userSlice';
 import axios from 'axios';
 import store from '../store';
+
+export const addUserThunk = createAsyncThunk("addUserThunk", async (_request, { dispatch }) => {
+
+    try {
+
+        let studentList = store.getState().student.studentsList;
+
+        // Set data in local storage
+        localStorage.setItem(
+            'students',
+            JSON.stringify(
+                [...studentList, _request]
+            ));
+
+        dispatch(addUser(_request)); //After Redux
+
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+export const updateUserThunk = createAsyncThunk("updateUserThunk", async (_request, { dispatch }) => {
+
+    try {
+
+        dispatch(updateUser(_request)); //After Redux
+
+        let studentList = store.getState().student.studentsList;
+        const newStudentList = studentList.map(std =>
+            std.id === _request.id
+                ? { ..._request }
+                : std
+        )
+
+        // Set data in local storage
+        localStorage.setItem(
+            'students',
+            JSON.stringify(
+                newStudentList
+            ));
+
+    } catch (error) {
+        console.log(error)
+    }
+});
 
 export const setLoggedInStatusUser = createAsyncThunk("setLoggedInStatusUser", async (_request, { dispatch }) => {
     try {

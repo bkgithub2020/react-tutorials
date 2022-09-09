@@ -77,6 +77,38 @@ const Validations = {
             errors.event_title = "Title is required";
         }
         return errors;
+    },
+    validateUserForm: (data) => {
+        const errors = {};
+        if (!data.firstname) {
+            errors.firstname = "First Name is required";
+        }
+
+        if (!data.lastname) {
+            errors.lastname = "Last Name is required";
+        }
+
+        if (!data.city) {
+            errors.city = "City is required";
+        }
+
+        if (!data.username) {
+            errors.username = "Username is required";
+        }
+
+        if (!data.password) {
+            errors.password = "Password is required";
+        }
+
+        if (!data.zipcode) {
+            errors.zipcode = "Zip is required";
+        }
+
+        if (!data.phone) {
+            errors.phone = "Phone is required";
+        }
+
+        return errors;
     }
 };
 

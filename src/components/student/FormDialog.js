@@ -1,14 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import StudentForm from './StudentForm';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -48,7 +45,7 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function FormDialog({ openStatus, handleCloseDialogFunc }) {
+export default function FormDialog({ openStatus, handleCloseDialogFunc, component, formTitle }) {
     return (
         <div>
             <BootstrapDialog
@@ -57,13 +54,10 @@ export default function FormDialog({ openStatus, handleCloseDialogFunc }) {
                 open={openStatus}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseDialogFunc}>
-                    Edit Student
+                    {formTitle}
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
-                    <StudentForm
-                        isEditFormMode="1"
-                        handleCloseDialogFunc={handleCloseDialogFunc}
-                    />
+                    {component}
                 </DialogContent>
             </BootstrapDialog>
         </div>

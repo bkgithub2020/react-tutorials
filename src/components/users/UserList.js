@@ -8,6 +8,7 @@ import { setUserDetail } from '../../redux/slices/userSlice';
 import ConfirmationDialog from '../common/ConfirmationDialog';
 import { deleteUserThunk, getUsersThunk } from "../../redux/thunk/userThunk";
 import AlertMessage from '../common/AlertMessage';
+import UserForm from './UserForm';
 
 function UserList() {
     const userDataFromStore = useSelector((state) => state.userReducer.usersList);
@@ -133,7 +134,17 @@ function UserList() {
                 columns={columns}
                 options={options}
             />
-            <FormDialog openStatus={open} handleCloseDialogFunc={handleCloseDialog} />
+            <FormDialog
+                openStatus={open}
+                handleCloseDialogFunc={handleCloseDialog}
+                component={
+                    <UserForm
+                        isEditFormMode="1"
+                        handleCloseDialogFunc={handleCloseDialog}
+                    />
+                }
+                formTitle="Edit User"
+            />
             <ConfirmationDialog
                 openStatus={openConfirm}
                 textContent="Are you sure you want to delete this record?"
