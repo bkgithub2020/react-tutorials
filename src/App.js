@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import StudentForm from './components/student/StudentForm';
 import StudentStepForm from './components/student/StudentStepForm';
 import StudentList from './components/student/StudentList';
+import UserList from './components/users/UserList';
 import StudentStatics from './components/student/StudentStatics';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
@@ -68,6 +69,9 @@ function App() {
           <Route path="/hotel-add-price" component={HotelRoomPriceForm} />
           <Route path="/login" component={LoginForm} />
           <Route path="/calendar" component={Calendar} />
+          <Route path="/users-list">
+            <UserList studentData={students} />
+          </Route>
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>

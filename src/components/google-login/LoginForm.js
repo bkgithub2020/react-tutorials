@@ -84,7 +84,7 @@ export default function LoginForm() {
     console.log("loggedInStatus", loggedInStatus)
 
     if (loggedInStatus) {
-        return <Redirect to={"/users"} />;
+        return <Redirect to={"/users-list"} />;
     }
 
     return (
