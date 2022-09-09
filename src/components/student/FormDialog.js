@@ -1,8 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -51,9 +49,6 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function FormDialog({ openStatus, handleCloseDialogFunc }) {
-    const [students, setStudents] = useState([]);
-    const currentStudentData = useSelector((state) => state.student.studentDetail);
-
     return (
         <div>
             <BootstrapDialog
@@ -66,8 +61,6 @@ export default function FormDialog({ openStatus, handleCloseDialogFunc }) {
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
                     <StudentForm
-                        setStudentsFunc={setStudents}
-                        studentData={currentStudentData}
                         isEditFormMode="1"
                         handleCloseDialogFunc={handleCloseDialogFunc}
                     />

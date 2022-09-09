@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -9,10 +9,11 @@ import ParentDetails from './ParentDetails';
 import Button from '@mui/material/Button';
 import AlertMessage from '../common/AlertMessage';
 // import { addStudent } from '../../redux/actions/StudentActions';
-import { addStudent, updateStudent } from '../../redux/slices/studentSlice';
+import { addStudentThunk, updateStudentThunk } from '../../redux/thunk/studentThunk';
 import short from 'short-uuid';
 
-export default function StudentForm({ setStudentsFunc, studentData, isEditFormMode = 0, handleCloseDialogFunc }) {
+export default function StudentForm({ setStudentsFunc, isEditFormMode = 0, handleCloseDialogFunc }) {
+    const studentData = useSelector((state) => state.student.studentDetail);
     const [submitted, setSubmitted] = useState(false);
     const [formState, setFormState] = useState({
         values: {}
@@ -43,8 +44,7 @@ export default function StudentForm({ setStudentsFunc, studentData, isEditFormMo
 
         if (firstName && lastName && gender && address1 && city && state && zip && country) {
             if (isEditFormMode) {
-                setStudentsFunc({ ...studentData, ...formState.values });//Before redux data in local storage
-                dispatch(updateStudent(formState.values)); //After Redux
+                dispatch(updateStudentThunk(formState.values)); //After Redux
                 setFormState({ values: {} });
                 setSubmitted(false);
                 setOpenState(true);
@@ -54,8 +54,7 @@ export default function StudentForm({ setStudentsFunc, studentData, isEditFormMo
             } else {
                 const uniqueID = short.generate();
                 formState.values.id = uniqueID;
-                setStudentsFunc([...studentData, formState.values]);//Before redux data in local storage
-                dispatch(addStudent(formState.values)); //After Redux
+                dispatch(addStudentThunk(formState.values)); //After Redux
                 setFormState({ values: {} });
                 setSubmitted(false);
                 setOpenState(true);
