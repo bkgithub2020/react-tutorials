@@ -43,10 +43,10 @@ export const userAuthSlice = createSlice({
         updateUser: (state, { type, payload }) => ({
             ...state,
             userDetail: payload,
-            usersList: state.usersList.map(p =>
-                p.id === payload.id
+            usersList: state.usersList.map(usr =>
+                usr.id === payload.id
                     ? { ...payload }
-                    : p
+                    : usr
             )
         }),
         deleteUser: (state, { payload }) => ({

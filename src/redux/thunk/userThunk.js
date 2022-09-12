@@ -29,21 +29,55 @@ export const updateUserThunk = createAsyncThunk("updateUserThunk", async (_reque
 
     try {
 
-        dispatch(updateUser(_request)); //After Redux
+        const { id, email, username, password, firstname, lastname, city, street, number, zipcode, lat, long, phone } = _request;
 
-        let studentList = store.getState().student.studentsList;
-        const newStudentList = studentList.map(std =>
-            std.id === _request.id
-                ? { ..._request }
-                : std
-        )
+        // Make a request for a user with a given ID
+        await axios.put(`https://fakestoreapi.com/users/${id}`,
+            {
+                email,
+                username,
+                password,
+                name: {
+                    firstname,
+                    lastname
+                },
+                address: {
+                    city,
+                    street,
+                    number,
+                    zipcode,
+                    geolocation: {
+                        lat,
+                        long
+                    }
+                },
+                phone
+            })
+            .then(function (response) {
+                // handle success
 
-        // Set data in local storage
-        localStorage.setItem(
-            'students',
-            JSON.stringify(
-                newStudentList
-            ));
+                dispatch(updateUser(response.data)); //After Redux
+
+                let userList = store.getState().student.studentsList;
+                const newtList = userList.map(usr =>
+                    usr.id === _request.id
+                        ? { ..._request }
+                        : usr
+                )
+
+                // Set data in local storage
+                localStorage.setItem(
+                    'users',
+                    JSON.stringify(
+                        newtList
+                    ));
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
 
     } catch (error) {
         console.log(error)

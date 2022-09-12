@@ -5,12 +5,12 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { addUserThunk, updateUserThunk } from '../../redux/thunk/userThunk';
-import short from 'short-uuid';
 import TextField from '@mui/material/TextField';
 import Validations from '../../helper/validation';
 
 export default function UserForm({ setStudentsFunc, isEditFormMode = 0, handleCloseDialogFunc }) {
-    const userData = useSelector((state) => state.userReducer.userDetail);
+    const { name: { firstname, lastname }, address: { city, street, number, zipcode, geolocation: { lat, long } }, username, password, phone, email, id } = useSelector((state) => state.userReducer.userDetail);
+
     const [formState, setFormState] = useState({
         values: {}
     });
@@ -40,6 +40,7 @@ export default function UserForm({ setStudentsFunc, isEditFormMode = 0, handleCl
 
         if (!Object.keys(error).length) {
             if (isEditFormMode) {
+                formState.values.id = id;
                 dispatch(updateUserThunk(formState.values)); //After Redux
                 setFormState({ values: {} });
                 handleCloseDialogFunc(false);
@@ -50,11 +51,25 @@ export default function UserForm({ setStudentsFunc, isEditFormMode = 0, handleCl
         }
     }
 
-    console.log("Errors", errors)
-
     useEffect(() => {
         if (isEditFormMode) {
-            setFormState({ values: userData });
+            setFormState({
+                values: {
+                    firstname,
+                    lastname,
+                    city,
+                    street,
+                    number,
+                    zipcode,
+                    lat,
+                    long,
+                    username,
+                    password,
+                    email,
+                    phone
+                },
+
+            });
         }
     }, [])
 
