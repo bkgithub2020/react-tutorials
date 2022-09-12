@@ -113,7 +113,7 @@ function UserList() {
         setOpenConfirm(false);
         setCurrentSelectedIndex(-1);
         setOpenState(true);
-        setMessage("Student Deleted Successfully!");
+        setMessage("User Deleted Successfully!");
     };
 
     const handleCloseCancelConfirm = () => {

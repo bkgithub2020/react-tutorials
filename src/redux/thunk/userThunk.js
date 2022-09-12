@@ -161,9 +161,14 @@ export const deleteUserThunk = createAsyncThunk("deleteUserThunk", async (_reque
 
     try {
 
+        const { id } = _request;
+
+        const response = await axios.delete(`https://fakestoreapi.com/users/${id}`);
+
         dispatch(deleteUser(_request));
 
-        let userList = store.getState().userReducer.studentsList;
+        let userList = store.getState().userReducer.usersList;
+
         const newUserList = userList.filter(usr => usr.id !== _request.id)
 
         // Set data in local storage
@@ -174,6 +179,6 @@ export const deleteUserThunk = createAsyncThunk("deleteUserThunk", async (_reque
             ));
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 });
